@@ -76,3 +76,6 @@ DerivedDataCache/*
 Content/ParagonSparrow
 Content/ParagonGreystone
 Content/ParagonTerra
+Content/__ExternalActors__/TopDown/Maps/TopDownMap
+Content/__ExternalObjects__/TopDown/Maps/TopDownMap
+Content/ParagonPhase
