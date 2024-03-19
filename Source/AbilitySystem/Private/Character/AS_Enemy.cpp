@@ -3,30 +3,35 @@
 
 #include "Character/AS_Enemy.h"
 
+#include "AbilitySystem/AbilitySystem.h"
 
-// Sets default values
+
 AAS_Enemy::AAS_Enemy()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 
-// Called when the game starts or when spawned
 void AAS_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
-// Called every frame
 void AAS_Enemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
-void AAS_Enemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AAS_Enemy::HighlightActor()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	GetMesh()->SetRenderCustomDepth(true);
+	Weapon->SetRenderCustomDepth(true);
 }
 
+void AAS_Enemy::UnHighlightActor()
+{
+	GetMesh()->SetRenderCustomDepth(false);
+	Weapon->SetRenderCustomDepth(false);
+}
