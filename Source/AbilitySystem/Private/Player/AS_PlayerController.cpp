@@ -1,0 +1,57 @@
+﻿// Copyright Artur Hrytsiv
+
+
+#include "Player/AS_PlayerController.h"
+
+#include "EnhancedInputSubsystems.h"
+#include "EnhancedInputComponent.h"
+
+// Sets default values
+AAS_PlayerController::AAS_PlayerController()
+{
+	bReplicates = true;
+}
+
+// Called when the game starts or when spawned
+void AAS_PlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	check(CharacterContext);
+	
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
+	check(Subsystem);
+	Subsystem->AddMappingContext(CharacterContext, 0);
+
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
+
+	FInputModeGameAndUI InputModeData;
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	InputModeData.SetHideCursorDuringCapture(false);
+	SetInputMode(InputModeData);
+}
+
+void AAS_PlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
+	
+	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAS_PlayerController::Move);
+}
+
+void AAS_PlayerController::Move(const FInputActionValue& InputActionValue)
+{
+	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
+	const FRotator Rotation = GetControlRotation();
+	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
+
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	if (APawn* ControlledPawn = GetPawn<APawn>())
+	{
+		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
+		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
