@@ -12,6 +12,11 @@ AAS_CharacterBase::AAS_CharacterBase()
 	Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
+UAbilitySystemComponent* AAS_CharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 // Called when the game starts or when spawned
 void AAS_CharacterBase::BeginPlay()
 {

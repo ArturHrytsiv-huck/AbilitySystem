@@ -1,35 +1,32 @@
-// Copyright Artur Hrytsiv
+﻿// Copyright Artur Hrytsiv
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
-#include "GameFramework/Character.h"
-#include "AS_CharacterBase.generated.h"
+#include "GameFramework/PlayerState.h"
+#include "AS_PLayerState.generated.h"
 
 class UAbilitySystemComponent;
 class UAttributeSet;
-
-UCLASS(Abstract)
-class ABILITYSYSTEM_API AAS_CharacterBase : public ACharacter, public IAbilitySystemInterface
+UCLASS()
+class ABILITYSYSTEM_API AAS_PLayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	AAS_CharacterBase();
-
+	AAS_PLayerState();
+	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 protected:
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Combat")
-	TObjectPtr<USkeletalMeshComponent> Weapon;
-
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, Category = "")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
-	UPROPERTY(EditAnywhere, Category = "Combat")
+	UPROPERTY(EditAnywhere, Category = "")
 	TObjectPtr<UAttributeSet> AttributeSet;
+public:
 };
