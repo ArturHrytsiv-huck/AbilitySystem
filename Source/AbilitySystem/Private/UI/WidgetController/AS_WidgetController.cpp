@@ -11,3 +11,12 @@ void UAS_WidgetController::SetWidgetControllerPrams(const FWidgetControllerParam
 	AttributeSet = WCParams.AttributeSet;
 	
 }
+
+void UAS_WidgetController::BroadcastInitialsValues()
+{
+	
+}
+
+void UAS_WidgetController::BindCallbackToDependencies()
+{
+}

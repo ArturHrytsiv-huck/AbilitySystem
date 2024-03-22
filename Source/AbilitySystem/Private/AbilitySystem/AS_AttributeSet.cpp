@@ -6,11 +6,11 @@
 
 UAS_AttributeSet::UAS_AttributeSet()
 {
-	InitHealth(100.f);
-	InitMaxHealth(Health.GetCurrentValue());
+	InitHealth(50.f);
+	InitMaxHealth(100.f);
 	
-	InitMana(100.f);
-	InitMaxMana(Mana.GetCurrentValue());
+	InitMana(50.f);
+	InitMaxMana(100.f);
 }
 
 void UAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const

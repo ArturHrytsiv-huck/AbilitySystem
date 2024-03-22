@@ -44,7 +44,9 @@ class ABILITYSYSTEM_API UAS_WidgetController : public UObject
 public:
 	UFUNCTION(BlueprintCallable)
 	void SetWidgetControllerPrams(const FWidgetControllerParams& WCParams);
-	
+
+	virtual void BroadcastInitialsValues();
+	virtual void BindCallbackToDependencies();
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "WidgetController")

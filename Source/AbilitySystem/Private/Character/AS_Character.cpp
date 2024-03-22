@@ -5,7 +5,9 @@
 
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Player/AS_PlayerController.h"
 #include "Player/AS_PLayerState.h"
+#include "UI/HUD/AS_HUD.h"
 
 
 // Sets default values
@@ -30,6 +32,16 @@ void AAS_Character::InitAbilityActorInfo()
 	ASPLayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(ASPLayerState, this);
 	AbilitySystemComponent = ASPLayerState->GetAbilitySystemComponent();
 	AttributeSet = ASPLayerState->GetAttributeSet();
+
+	if (AAS_PlayerController* As_PlayerController = Cast<AAS_PlayerController>(GetController()))
+	{
+		if (AAS_HUD* CharacterHUD = Cast<AAS_HUD>(As_PlayerController->GetHUD()))
+		{
+			CharacterHUD ->InitOverlay(As_PlayerController, ASPLayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
+
+	
 }
 
 void AAS_Character::PossessedBy(AController* NewController)
