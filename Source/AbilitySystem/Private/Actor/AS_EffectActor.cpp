@@ -27,3 +27,24 @@ void AAS_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGame
 	TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 }
 
+void AAS_EffectActor::OnOverlap(AActor* TargetActor)
+{
+	
+}
+
+void AAS_EffectActor::OnEndOverlap(AActor* TargetActor)
+{
+	
+}
+
+void AAS_EffectActor::DenyEffectToTarget(AActor* TargetActor)
+{
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+	if (TargetASC == nullptr) return;
+	
+	FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+	
+	
+}
+
