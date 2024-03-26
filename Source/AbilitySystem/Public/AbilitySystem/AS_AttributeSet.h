@@ -15,40 +15,39 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FEffectProperties
 {
 	GENERATED_BODY()
 
 	FEffectProperties() {}
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FGameplayEffectContextHandle EffectContextHandle;
 
 	//~ Source
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	UAbilitySystemComponent* SourceASC;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	AActor* SourceAvatarActor;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	AController* SourceController;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	ACharacter* SourceCharacter;
 
 	//~ Target
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	UAbilitySystemComponent* TargetASC;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	AActor* TargetAvatarActor;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	AController* TargetController;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY()
 	ACharacter* TargetCharacter;
 
 };
