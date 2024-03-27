@@ -23,3 +23,8 @@ void AAS_CharacterBase::BeginPlay()
 	Super::BeginPlay();
 	
 }
+
+void AAS_CharacterBase::InitAbilityActorInfo()
+{
+	
+}

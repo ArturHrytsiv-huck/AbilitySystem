@@ -4,6 +4,7 @@
 #include "Character/AS_Character.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AS_AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AS_PlayerController.h"
 #include "Player/AS_PLayerState.h"
@@ -28,8 +29,10 @@ AAS_Character::AAS_Character()
 void AAS_Character::InitAbilityActorInfo()
 {
 	AAS_PLayerState* ASPLayerState = GetPlayerState<AAS_PLayerState>();
-	// check(ASPLayerState);
+	check(ASPLayerState);
 	ASPLayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(ASPLayerState, this);
+	Cast<UAS_AbilitySystemComponent>(ASPLayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	
 	AbilitySystemComponent = ASPLayerState->GetAbilitySystemComponent();
 	AttributeSet = ASPLayerState->GetAttributeSet();
 

@@ -28,8 +28,7 @@ AAS_Enemy::AAS_Enemy()
 void AAS_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
-
-	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	InitAbilityActorInfo();
 }
 
 void AAS_Enemy::Tick(float DeltaTime)
@@ -47,4 +46,10 @@ void AAS_Enemy::UnHighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
+}
+
+void AAS_Enemy::InitAbilityActorInfo()
+{
+	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	Cast<UAS_AbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
 }
