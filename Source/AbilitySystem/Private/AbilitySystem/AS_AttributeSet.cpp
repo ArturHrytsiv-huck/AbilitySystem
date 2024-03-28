@@ -52,6 +52,15 @@ void UAS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
 	FEffectProperties Properties;
 	SetEffectProperties(Data, Properties);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	}
 }
 
 void UAS_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
