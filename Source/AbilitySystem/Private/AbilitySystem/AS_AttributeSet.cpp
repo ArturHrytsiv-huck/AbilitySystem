@@ -19,6 +19,12 @@ UAS_AttributeSet::UAS_AttributeSet()
 void UAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//~ Primary Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Strength, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Vigor, COND_None, REPNOTIFY_Always);
 	
 	//~ Health
 	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Health, COND_None, REPNOTIFY_Always);
@@ -81,6 +87,26 @@ void UAS_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 void UAS_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, MaxMana, OldMaxMana);
+}
+
+void UAS_AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, Strength, OldStrength);
+}
+
+void UAS_AttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, Intelligence, OldIntelligence);
+}
+
+void UAS_AttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, Resilience, OldResilience);
+}
+
+void UAS_AttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, Vigor, OldVigor);
 }
 
 void UAS_AttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Properties) const

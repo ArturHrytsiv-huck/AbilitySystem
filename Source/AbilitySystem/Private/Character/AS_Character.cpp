@@ -43,8 +43,7 @@ void AAS_Character::InitAbilityActorInfo()
 			CharacterHUD ->InitOverlay(As_PlayerController, ASPLayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
-
-	
+	InitializePrimaryAttributes();
 }
 
 void AAS_Character::PossessedBy(AController* NewController)
