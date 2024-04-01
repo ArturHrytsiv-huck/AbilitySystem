@@ -15,14 +15,21 @@ class ABILITYSYSTEM_API AAS_Enemy : public AAS_CharacterBase, public IEnemyInter
 public:
 	AAS_Enemy();
 
-	virtual void Tick(float DeltaTime) override;
-protected:
-	virtual void BeginPlay() override;
-
 public:
-	
+
+	/** Enemy Interface */
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+	/** End Enemy Interface */
 
+	/** Combat Interface */
+	virtual int32 GetPlayerLevel() override;
+	/** End Combat Interface */
+
+protected:
+	virtual void BeginPlay() override;
 	virtual void InitAbilityActorInfo() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults")
+	int32 Level = 1;
 };

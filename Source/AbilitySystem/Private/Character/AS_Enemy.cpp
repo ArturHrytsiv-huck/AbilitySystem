@@ -31,11 +31,6 @@ void AAS_Enemy::BeginPlay()
 	InitAbilityActorInfo();
 }
 
-void AAS_Enemy::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void AAS_Enemy::HighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(true);
@@ -46,6 +41,11 @@ void AAS_Enemy::UnHighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
 	Weapon->SetRenderCustomDepth(false);
+}
+
+int32 AAS_Enemy::GetPlayerLevel()
+{
+	return Level;
 }
 
 void AAS_Enemy::InitAbilityActorInfo()

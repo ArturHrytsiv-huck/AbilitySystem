@@ -43,7 +43,7 @@ void AAS_Character::InitAbilityActorInfo()
 			CharacterHUD ->InitOverlay(As_PlayerController, ASPLayerState, AbilitySystemComponent, AttributeSet);
 		}
 	}
-	InitializePrimaryAttributes();
+	InitializeDefaultAttributes();
 }
 
 void AAS_Character::PossessedBy(AController* NewController)
@@ -60,6 +60,13 @@ void AAS_Character::OnRep_PlayerState()
 
 	// Init ability actor info for the Client
 	InitAbilityActorInfo();
+}
+
+int32 AAS_Character::GetPlayerLevel()
+{
+	AAS_PLayerState* ASPLayerState = GetPlayerState<AAS_PLayerState>();
+	check(ASPLayerState);
+	return ASPLayerState->GetPlayerLevel();
 }
 
 void AAS_Character::BeginPlay()

@@ -16,17 +16,26 @@ class ABILITYSYSTEM_API AAS_PLayerState : public APlayerState, public IAbilitySy
 
 public:
 	AAS_PLayerState();
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
+	FORCEINLINE int32 GetPlayerLevel() const { return Level; }
 protected:
-	virtual void BeginPlay() override;
 
 	UPROPERTY(EditAnywhere, Category = "")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 
 	UPROPERTY(EditAnywhere, Category = "")
 	TObjectPtr<UAttributeSet> AttributeSet;
-public:
+private:
+
+	UPROPERTY(VisibleAnywhere, ReplicatedUsing=OnRep_Level)
+	int32 Level = 1;
+
+	UFUNCTION()
+	void OnRep_Level(int32 OldLevel);
 };

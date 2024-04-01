@@ -10,10 +10,8 @@
 UAS_AttributeSet::UAS_AttributeSet()
 {
 	InitHealth(50.f);
-	InitMaxHealth(100.f);
 	
 	InitMana(50.f);
-	InitMaxMana(100.f);
 }
 
 void UAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -29,10 +27,20 @@ void UAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
 	//~ Health
 	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, HealthRegeneration, COND_None, REPNOTIFY_Always);
 	
 	//~ Mana
 	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Mana, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, ManaRegeneration, COND_None, REPNOTIFY_Always);
+
+	// Secondary Attributes
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, Armor, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, ArmorPenetration, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, CriticalHitChance, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, CriticalHitDamage, COND_None, REPNOTIFY_Always);
+	DOREPLIFETIME_CONDITION_NOTIFY(UAS_AttributeSet, CriticalHitResistance, COND_None, REPNOTIFY_Always);
 
 }
 
@@ -87,6 +95,46 @@ void UAS_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 void UAS_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, MaxMana, OldMaxMana);
+}
+
+void UAS_AttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, Armor, OldArmor);
+}
+
+void UAS_AttributeSet::OnRep_ArmorPenetration(const FGameplayAttributeData& OldArmorPenetration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, ArmorPenetration, OldArmorPenetration);
+}
+
+void UAS_AttributeSet::OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, BlockChance, OldBlockChance);
+}
+
+void UAS_AttributeSet::OnRep_CriticalHitChance(const FGameplayAttributeData& OldCriticalHitChance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, CriticalHitChance, OldCriticalHitChance);
+}
+
+void UAS_AttributeSet::OnRep_CriticalHitDamage(const FGameplayAttributeData& OldCriticalHitDamage) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, CriticalHitDamage, OldCriticalHitDamage);
+}
+
+void UAS_AttributeSet::OnRep_CriticalHitResistance(const FGameplayAttributeData& OldCriticalHitResistance) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, CriticalHitResistance, OldCriticalHitResistance);
+}
+
+void UAS_AttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, HealthRegeneration, OldHealthRegeneration);
+}
+
+void UAS_AttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAS_AttributeSet, ManaRegeneration, OldManaRegeneration);
 }
 
 void UAS_AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
