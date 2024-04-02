@@ -9,9 +9,7 @@
 
 UAS_AttributeSet::UAS_AttributeSet()
 {
-	InitHealth(50.f);
-	
-	InitMana(50.f);
+
 }
 
 void UAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
