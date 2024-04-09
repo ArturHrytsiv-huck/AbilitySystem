@@ -52,3 +52,4 @@ void FAS_GameplayTags::InitializeNativeGameplayTags()
 		(FName("Attributes.Secondary.ManaRegeneration"), FString("Amount of Mana regenerated every 1 second"));
 		
 }
+ 

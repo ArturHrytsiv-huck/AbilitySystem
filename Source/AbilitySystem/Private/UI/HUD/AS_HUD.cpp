@@ -5,6 +5,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "UI/Widget/AS_UserWidget.h"
+#include "UI/WidgetController/AttributeMenuWidgetController.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 
 
@@ -43,4 +44,15 @@ void AAS_HUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyste
 	Widget->AddToViewport();
 
 	
+}
+
+UAttributeMenuWidgetController* AAS_HUD::GetAttributeMenuWidgetController(const FWidgetControllerParams& WidgetControllerParams)
+{
+	if (AttributeMenuWidgetController == nullptr)
+	{
+		AttributeMenuWidgetController = NewObject<UAttributeMenuWidgetController>(this, AttributeMenuWidgetControllerClass);
+		AttributeMenuWidgetController->SetWidgetControllerPrams(WidgetControllerParams);
+		AttributeMenuWidgetController->BindCallbackToDependencies();
+	}
+	return  AttributeMenuWidgetController;
 }
