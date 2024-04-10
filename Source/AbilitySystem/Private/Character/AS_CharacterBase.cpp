@@ -4,6 +4,7 @@
 #include "Character/AS_CharacterBase.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AS_AbilitySystemComponent.h"
 
 AAS_CharacterBase::AAS_CharacterBase()
 {
@@ -48,4 +49,12 @@ void AAS_CharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayE
 	
 	const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(),GetAbilitySystemComponent());
+}
+
+void AAS_CharacterBase::AddCharacterAbilities()
+{
+	UAS_AbilitySystemComponent* ASC = CastChecked<UAS_AbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority()) return;
+	
+	ASC->AddCharacterAbilities(StartupAbilities);
 }

@@ -2,13 +2,21 @@
 
 
 #include "UI/WidgetController/AttributeMenuWidgetController.h"
-
-#include "AS_GameplayTags.h"
 #include "AbilitySystem/AS_AttributeSet.h"
+
 
 void UAttributeMenuWidgetController::BindCallbackToDependencies()
 {
-	
+	UAS_AttributeSet* AS = CastChecked<UAS_AttributeSet>(AttributeSet);
+	for (auto& Pair : AS->TagsToAttributes)
+	{
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Value()).AddLambda(
+	[this, Pair](const FOnAttributeChangeData& Data)
+		{
+			BroadcastAttributeInfo(Pair.Key, Pair.Value());
+		});
+	}
+
 }
 
 void UAttributeMenuWidgetController::BroadcastInitialsValues()
@@ -17,7 +25,15 @@ void UAttributeMenuWidgetController::BroadcastInitialsValues()
 
 	check(AttributeInfo);
 
-	FAS_AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(FAS_GameplayTags::Get().Attributes_Primary_Strength);
-	Info.AttributeValue = AS->GetStrength();
+	for (auto& Pair : AS->TagsToAttributes)
+	{
+		BroadcastAttributeInfo(Pair.Key, Pair.Value());
+	}
+}
+
+void UAttributeMenuWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const
+{
+	FAS_AttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);
+	Info.AttributeValue = Attribute.GetNumericValue(AttributeSet);
 	AttributeInfoDelegate.Broadcast(Info);
 }
