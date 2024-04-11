@@ -29,7 +29,7 @@ class ABILITYSYSTEM_API UAS_InputConfig : public UDataAsset
 public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	TArray<FAS_InputAction> AbilityInputAction;
+	TArray<FAS_InputAction> AbilityInputActions;
 
 	const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
 };

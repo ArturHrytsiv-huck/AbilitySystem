@@ -5,7 +5,7 @@
 
 const UInputAction* UAS_InputConfig::FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound) const
 {
-	for (auto Action : AbilityInputAction)
+	for (auto Action : AbilityInputActions)
 	{
 		if (Action.InputAction && Action.InputTag == InputTag)
 		{
