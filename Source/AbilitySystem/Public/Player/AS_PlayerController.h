@@ -34,7 +34,10 @@ protected:
 	void Move(const FInputActionValue& InputActionValue);
 
 	void CursorTrace();
+
 private:
+	FHitResult CursorHit;
+
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> CharacterContext;
 
@@ -68,4 +71,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
+
+	void AutoRun();
 };

@@ -58,3 +58,9 @@ void AAS_CharacterBase::AddCharacterAbilities()
 	
 	ASC->AddCharacterAbilities(StartupAbilities);
 }
+
+FVector AAS_CharacterBase::GetCombatSocketLocation()
+{
+	check(Weapon);
+	return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
