@@ -10,8 +10,12 @@ void UAS_ProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handl
                                           const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	
+}
 
-	const bool bIsServer = HasAuthority(&ActivationInfo);
+void UAS_ProjectileSpell::SpawnProjectile()
+{
+	const bool bIsServer = GetAvatarActorFromActorInfo()->HasAuthority();
 	if (!bIsServer) return;
 
 	ICombatInterface* CombatInterface = Cast<ICombatInterface>(GetAvatarActorFromActorInfo());
@@ -21,7 +25,7 @@ void UAS_ProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 
 		FTransform SpawnTransform;
 		SpawnTransform.SetLocation(SocketLocation);
-		//TODO: Set the Projectile Rotation
+		// TODO: Set the Projectile Rotation
 		
 		AAS_Projectile* Projectile = GetWorld()->SpawnActorDeferred<AAS_Projectile>(ProjectileClass,
 													   SpawnTransform,
@@ -29,12 +33,8 @@ void UAS_ProjectileSpell::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 													   Cast<APawn>(GetOwningActorFromActorInfo()),
 													   ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
-		//TODO: Give the Projectile a Gameplay Effect Spec for causing Damage.
+		// TODO: Give the Projectile a Gameplay Effect Spec for causing Damage.
 		
 		Projectile->FinishSpawning(SpawnTransform);
 	}
-	
-	
-
-	
 }
