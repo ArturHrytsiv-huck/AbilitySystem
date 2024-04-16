@@ -10,7 +10,7 @@ public class AbilitySystem : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", 
 	        "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput", 
-	        "GameplayAbilities", "GameplayTags", "GameplayTasks", "UMG", "NavigationSystem" });
+	        "GameplayAbilities", "GameplayTags", "GameplayTasks", "UMG", "NavigationSystem", "Niagara" });
         
         PrivateDependencyModuleNames.AddRange(new string[] {  });
     }

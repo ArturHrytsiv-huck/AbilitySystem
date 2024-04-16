@@ -35,6 +35,16 @@ protected:
 
 	void CursorTrace();
 
+	void ShiftPressed() { bShiftKeyDown = true; }
+	void ShiftReleased() { bShiftKeyDown = false; }
+
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+
+	UAS_AbilitySystemComponent* GetASC();
+
+	void AutoRun();
 private:
 	FHitResult CursorHit;
 
@@ -44,12 +54,12 @@ private:
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
 
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> ShiftAction;
+
 	IEnemyInterface* LastActor;
 	IEnemyInterface* ThisActor;
 
-	void AbilityInputTagPressed(FGameplayTag InputTag);
-	void AbilityInputTagReleased(FGameplayTag InputTag);
-	void AbilityInputTagHeld(FGameplayTag InputTag);
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	TObjectPtr<UAS_InputConfig> InputConfig;
@@ -57,7 +67,7 @@ private:
 	UPROPERTY()
 	TObjectPtr<UAS_AbilitySystemComponent> ASAbilitySystemComponent;
 
-	UAS_AbilitySystemComponent* GetASC();
+	bool bShiftKeyDown = false;
 
 	//~ Movement
 	FVector CachedDestination = FVector::ZeroVector;
@@ -72,5 +82,4 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USplineComponent> Spline;
 
-	void AutoRun();
 };

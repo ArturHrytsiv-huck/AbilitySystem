@@ -73,6 +73,9 @@ void AAS_PlayerController::SetupInputComponent()
 	UAS_InputComponent* ASInputComponent = CastChecked<UAS_InputComponent>(InputComponent);
 	
 	ASInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAS_PlayerController::Move);
+	ASInputComponent->BindAction(ShiftAction, ETriggerEvent::Started, this, &AAS_PlayerController::ShiftPressed);
+	ASInputComponent->BindAction(ShiftAction, ETriggerEvent::Completed, this, &AAS_PlayerController::ShiftReleased);
+	
 	ASInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
@@ -124,25 +127,24 @@ void AAS_PlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}
-	if (bTargeting)
-	{
-		if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
-	}
-	else
+	
+	if (GetASC()) GetASC()->AbilityInputTagReleased(InputTag);
+
+	if (!bTargeting && !bShiftKeyDown)
 	{
 		const APawn* ControlledPawn = GetPawn();
 		if (FollowTime <= ShortPressThreshold)
 		{
-			 if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
-			 {
-			 	Spline->ClearSplinePoints();
-			 	for (const FVector& PointLoc : NavPath->PathPoints)
-			 	{
-			 		Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
-			 	}
-			 	CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
-			 	bAutoRunning = true;
-			 }
+			if (UNavigationPath* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+			{
+				Spline->ClearSplinePoints();
+				for (const FVector& PointLoc : NavPath->PathPoints)
+				{
+					Spline->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+				}
+				CachedDestination = NavPath->PathPoints[NavPath->PathPoints.Num() - 1];
+				bAutoRunning = true;
+			}
 		}
 		FollowTime = 0.f;
 		bTargeting = false;
@@ -156,7 +158,7 @@ void AAS_PlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 		if (GetASC())GetASC()->AbilityInputTagReleased(InputTag);
 		return;
 	}
-	if (bTargeting)
+	if (bTargeting || bShiftKeyDown)
 	{
 		if (GetASC()) GetASC()->AbilityInputTagHeld(InputTag);
 	}
