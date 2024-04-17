@@ -68,6 +68,7 @@ void UAS_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 	if (Attribute == GetHealthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
+		UE_LOG(LogTemp, Warning, TEXT("Health --> %f"), NewValue);
 	}
 
 	if (Attribute == GetManaAttribute())

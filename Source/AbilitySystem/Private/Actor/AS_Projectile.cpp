@@ -3,6 +3,8 @@
 
 #include "Actor/AS_Projectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "AbilitySystem/AbilitySystem.h"
 #include "Components/AudioComponent.h"
@@ -68,6 +70,10 @@ void AAS_Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 	
 	if (HasAuthority())
 	{
+		if (UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor))
+		{
+			TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
+		}
 		Destroy();
 	}
 	else
